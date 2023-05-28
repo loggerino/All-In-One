@@ -1,7 +1,7 @@
 export function Home() {
     return (
         <div className="Selection">
-            <ul>
+            <ul className="homelist">
                 <li>Todo List</li>
                 <li>Calculator</li>
             </ul>

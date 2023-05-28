@@ -241,3 +241,16 @@ body {
   justify-content: center;
   margin-bottom: 5px;
 }
+
+.homelist {
+  font-size: 40px;
+  display: flex;
+  gap: 10rem;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  list-style-type: none;
+  height: 80vh; /* Added height to make the container fill the entire viewport */
+  margin: 0; /* Added to remove default margin */
+  padding: 0; /* Added to remove default padding */
+}
