@@ -267,7 +267,19 @@ body {
   align-items: center;
   align-content: center;
   list-style-type: none;
-  height: 80vh;
+  text-decoration: none;
+  height: 50vh;
   margin: 0;
   padding: 0;
+}
+
+.homelist a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.home-title {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
 }
