@@ -1,52 +1,24 @@
 import { useState } from "react";
 
 export function Calculator() {
-  const [num1, setNum1] = useState("");
-  const [num2, setNum2] = useState("");
-  const [operator, setOperator] = useState("");
+  const [expression, setExpression] = useState("");
   const [result, setResult] = useState("");
 
-  function handleNumberClick(number) {
-    if (operator === "") {
-      setNum1(num1 + number);
-    } else {
-      setNum2(num2 + number);
-    }
-  }
-
-  function handleOperatorClick(selectedOperator) {
-    setOperator(selectedOperator);
+  function handleButtonClick(value) {
+    setExpression((prevExpression) => prevExpression + value);
   }
 
   function handleCalculate() {
-    const number1 = parseInt(num1);
-    const number2 = parseInt(num2);
-
-    let calculatedResult;
-    switch (operator) {
-      case "+":
-        calculatedResult = number1 + number2;
-        break;
-      case "-":
-        calculatedResult = number1 - number2;
-        break;
-      case "*":
-        calculatedResult = number1 * number2;
-        break;
-      case "/":
-        calculatedResult = number1 / number2;
-        break;
-      default:
-        calculatedResult = "";
+    try {
+      const calculatedResult = eval(expression);
+      setResult(calculatedResult.toString());
+    } catch (error) {
+      setResult("Error");
     }
-
-    setResult(calculatedResult.toString());
   }
 
   function handleClear() {
-    setNum1("");
-    setNum2("");
-    setOperator("");
+    setExpression("");
     setResult("");
   }
 
@@ -56,26 +28,31 @@ export function Calculator() {
       <div className="calculator-grid">
         <div className="output">
           <div className="previous-operand"></div>
-          <div className="current-operand"></div>
+          <div className="current-operand">{expression}</div>
+          <div className="result">{result}</div>
         </div>
-        <button className="span-two">AC</button>
-        <button>DEL</button>
-        <button>/</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>*</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>+</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button>-</button>
-        <button>.</button>
-        <button>0</button>
-        <button className="span-two">=</button>
+        <button className="span-two" onClick={handleClear}>
+          AC
+        </button>
+        <button onClick={() => setExpression((prev) => prev.slice(0, -1))}>
+          DEL
+        </button>
+        <button onClick={() => handleButtonClick("/")}>/</button>
+        <button onClick={() => handleButtonClick("1")}>1</button>
+        <button onClick={() => handleButtonClick("2")}>2</button>
+        <button onClick={() => handleButtonClick("3")}>3</button>
+        <button onClick={() => handleButtonClick("*")}>*</button>
+        <button onClick={() => handleButtonClick("4")}>4</button>
+        <button onClick={() => handleButtonClick("5")}>5</button>
+        <button onClick={() => handleButtonClick("6")}>6</button>
+        <button onClick={() => handleButtonClick("+")}>+</button>
+        <button onClick={() => handleButtonClick("7")}>7</button>
+        <button onClick={() => handleButtonClick("8")}>8</button>
+        <button onClick={() => handleButtonClick("9")}>9</button>
+        <button onClick={() => handleButtonClick("-")}>-</button>
+        <button onClick={() => handleButtonClick(".")}>.</button>
+        <button onClick={() => handleButtonClick("0")}>0</button>
+        <button className="span-two" onClick={handleCalculate}>=</button>
       </div>
     </>
   );
