@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 export function Navbar() {
     return (
@@ -6,10 +6,10 @@ export function Navbar() {
             <Link to="/" className="home">Home</Link>
             <ul>
                 <li>
-                    <a href="/calculator">Calculator</a>
+                    <CustomLink to="/calculator">Calculator</CustomLink>
                 </li>
                 <li>
-                    <a href="/TodoForm">Todo List</a>
+                    <CustomLink to="/TodoForm">Todo List</CustomLink>
                 </li>
             </ul>
         </nav>
@@ -17,10 +17,11 @@ export function Navbar() {
 }
 
 function CustomLink({ to, children, ...props }) {
-    const path = window.location.pathname;
+    const resolvedPath = useResolvedPath(to)
+    const isActive = useMatch({ path: resolvedPath.pathname, end: true })
 
     return (
-        <li className={path === to ? "active" : ""}>
+        <li className={isActive ? "active" : ""}>
             <Link to={to} {...props}>
                 {children}
             </Link>
