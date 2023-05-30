@@ -82,17 +82,19 @@ export function WeatherComponent() {
       const {
         temperature: currentTemp,
         windspeed: windSpeed,
-        weathercode: iconCode
-      } = current_weather
-
+        weathercode: iconCode,
+      } = current_weather;
+    
       const {
         temperature_2m_max: [maxTemp],
         temperature_2m_min: [minTemp],
         apparent_temperature_max: [maxFeelsLike],
         apparent_temperature_min: [minFeelsLike],
         precipitation_sum: [precip],
-      } = daily
-
+      } = daily;
+    
+      const weatherDescription = getWeatherDescription(iconCode); // Retrieve weather description
+    
       return {
         currentTemp: Math.round(currentTemp),
         highTemp: Math.round(maxTemp),
@@ -102,8 +104,10 @@ export function WeatherComponent() {
         windSpeed: Math.round(windSpeed),
         precip: Math.round(precip * 100) / 100,
         iconCode,
-      }
+        weatherDescription,
+      };
     }
+    
 
     function parseDailyWeather({ daily }) {
       return daily.time.map((time, index) => {
@@ -157,6 +161,7 @@ export function WeatherComponent() {
           <img className="weather-icon large" src="icons/sun.svg" data-current-icon />
           <div className="header-current-temp">
             <span data-current-temp>{current?.currentTemp}</span>&deg;
+            <div className="weather-description-header">{current?.weatherDescription}</div>
           </div>
         </div>
         <div className="header-right">
