@@ -11,6 +11,9 @@ export function Navbar() {
                 <li>
                     <CustomLink to="/TodoForm">Todo List</CustomLink>
                 </li>
+                <li>
+                    <CustomLink to="/WeatherApp">Weather Forecast</CustomLink>
+                </li>
             </ul>
         </nav>
     );

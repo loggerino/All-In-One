@@ -6,6 +6,7 @@ import { Calculator } from "./components/Calculator";
 import { Navbar } from "./components/Navbar";
 import { Home } from "./components/Home";
 import { Route, Routes } from "react-router-dom";
+import { WeatherComponent } from "./components/WeatherApp";
 
 export default function App() {
   const [todos, setTodos] = useState(() => {
@@ -68,6 +69,7 @@ export default function App() {
             </>
           }
         />
+        <Route path="/WeatherApp" element={<WeatherComponent />} />
       </Routes>
     </>
   );
