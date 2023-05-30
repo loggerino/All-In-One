@@ -175,7 +175,7 @@ export function WeatherComponent() {
           </div>
           <div className="info-group">
             <div className="label">Wind</div>
-            <div><span data-current-wind>{current?.windSpeed}</span><span className="value-sub-info">mph</span></div>
+            <div><span data-current-wind>{current?.windSpeed}</span><span className="value-sub-info">kmh</span></div>
           </div>
           <div className="info-group">
             <div className="label">Low</div>
@@ -187,7 +187,7 @@ export function WeatherComponent() {
           </div>
           <div className="info-group">
             <div className="label">Precip</div>
-            <div><span data-current-precip>{current?.precip}</span><span className="value-sub-info">in</span></div>
+            <div><span data-current-precip>{current?.precip}</span><span className="value-sub-info">mm</span></div>
           </div>
         </div>
       </header>
