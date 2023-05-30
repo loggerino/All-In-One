@@ -36,6 +36,48 @@ export function WeatherComponent() {
       }
     );
 
+    function getWeatherDescription(iconCode) {
+      switch (iconCode) {
+        case 0:
+        case 1:
+          return 'Sunny';
+        case 2:
+          return 'Partly Cloudy';
+        case 3:
+          return 'Cloudy';
+        case 45:
+        case 48:
+          return 'Smog';
+        case 51:
+        case 53:
+        case 55:
+        case 56:
+        case 57:
+        case 61:
+        case 63:
+        case 65:
+        case 66:
+        case 67:
+        case 80:
+        case 81:
+        case 82:
+          return 'Heavy Showers';
+        case 71:
+        case 73:
+        case 75:
+        case 77:
+        case 85:
+        case 86:
+          return 'Snow';
+        case 95:
+        case 96:
+        case 99:
+          return 'Thunderstorm';
+        default:
+          return '';
+      }
+    }
+
     function parseCurrentWeather({ current_weather, daily }) {
       const {
         temperature: currentTemp,
@@ -77,12 +119,13 @@ export function WeatherComponent() {
       const currentTimestamp = new Date(current_weather.time).getTime();
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
       return hourly.time
         .map((time, index) => {
           return {
             timestamp: time,
             iconCode: hourly.weathercode[index],
+            weatherDescription: getWeatherDescription(hourly.weathercode[index]),
             temp: Math.round(hourly.temperature_2m[index]),
             feelsLike: Math.round(hourly.apparent_temperature[index]),
             windSpeed: Math.round(hourly.windspeed_10m[index]),
@@ -94,7 +137,7 @@ export function WeatherComponent() {
           return hourTime >= currentTimestamp && hourTime <= tomorrow.getTime();
         });
     }
-  
+
     function renderWeather(weatherData) {
       setCurrent(weatherData.current);
       setDaily(weatherData.daily);
@@ -108,7 +151,7 @@ export function WeatherComponent() {
   }
 
   function renderCurrentWeather() {
-    return(
+    return (
       <header className="header">
         <div className="header-left">
           <img className="weather-icon large" src="icons/sun.svg" data-current-icon />
@@ -166,7 +209,12 @@ export function WeatherComponent() {
           </div>
         </td>
         <td>
-          <img src={getIconUrl(hour.iconCode)} className="weather-icon" />
+          <td>
+            <div className="weather-info">
+              <img src={getIconUrl(hour.iconCode)} className="weather-icon" />
+              <div className="weather-description">{hour.weatherDescription}</div>
+            </div>
+          </td>
         </td>
         <td>
           <div className="info-group">
