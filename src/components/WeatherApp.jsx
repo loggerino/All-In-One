@@ -158,36 +158,36 @@ export function WeatherComponent() {
     return (
       <header className="header">
         <div className="header-left">
-          <img className="weather-icon large" src="icons/sun.svg" data-current-icon />
+          <img className="weather-icon large" src={getIconUrl(current?.iconCode)} />
           <div className="header-current-temp">
-            <span data-current-temp>{current?.currentTemp}</span>&deg;
+            <span>{current?.currentTemp}</span>&deg;
             <div className="weather-description-header">{current?.weatherDescription}</div>
           </div>
         </div>
         <div className="header-right">
           <div className="info-group">
             <div className="label">High</div>
-            <div><span data-current-high>{current?.highTemp}</span>&deg;</div>
+            <div><span>{current?.highTemp}</span>&deg;</div>
           </div>
           <div className="info-group">
             <div className="label">FL High</div>
-            <div><span data-current-fl-high>{current?.highFeelsLike}</span>&deg;</div>
+            <div><span>{current?.highFeelsLike}</span>&deg;</div>
           </div>
           <div className="info-group">
             <div className="label">Wind</div>
-            <div><span data-current-wind>{current?.windSpeed}</span><span className="value-sub-info">kmh</span></div>
+            <div><span>{current?.windSpeed}</span><span className="value-sub-info">kmh</span></div>
           </div>
           <div className="info-group">
             <div className="label">Low</div>
-            <div><span data-current-low>{current?.lowTemp}</span>&deg;</div>
+            <div><span>{current?.lowTemp}</span>&deg;</div>
           </div>
           <div className="info-group">
             <div className="label">FL Low</div>
-            <div><span data-current-fl-low>{current?.lowFeelsLike}</span>&deg;</div>
+            <div><span>{current?.lowFeelsLike}</span>&deg;</div>
           </div>
           <div className="info-group">
             <div className="label">Precip</div>
-            <div><span data-current-precip>{current?.precip}</span><span className="value-sub-info">mm</span></div>
+            <div><span>{current?.precip}</span><span className="value-sub-info">mm</span></div>
           </div>
         </div>
       </header>
