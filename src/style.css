@@ -297,8 +297,7 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0.5rem;
-  padding: 0.5rem 3rem 0 0;
-  border-right: 1.5px solid hsl(205, 100%, 35%);
+  padding: 0 1rem 0 0;
 }
 
 .weather-icon {
