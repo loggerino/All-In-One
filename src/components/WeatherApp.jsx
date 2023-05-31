@@ -3,11 +3,13 @@ import axios from "axios";
 import { ICON_MAP } from "./iconMap";
 
 export function WeatherComponent() {
+  const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(null);
   const [daily, setDaily] = useState([]);
   const [hourly, setHourly] = useState([]);
 
   useEffect(() => {
+
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
         axios
@@ -84,7 +86,7 @@ export function WeatherComponent() {
         windspeed: windSpeed,
         weathercode: iconCode,
       } = current_weather;
-    
+
       const {
         temperature_2m_max: [maxTemp],
         temperature_2m_min: [minTemp],
@@ -92,9 +94,9 @@ export function WeatherComponent() {
         apparent_temperature_min: [minFeelsLike],
         precipitation_sum: [precip],
       } = daily;
-    
+
       const weatherDescription = getWeatherDescription(iconCode); // Retrieve weather description
-    
+
       return {
         currentTemp: Math.round(currentTemp),
         highTemp: Math.round(maxTemp),
@@ -107,7 +109,7 @@ export function WeatherComponent() {
         weatherDescription,
       };
     }
-    
+
 
     function parseDailyWeather({ daily }) {
       return daily.time.map((time, index) => {
@@ -147,6 +149,16 @@ export function WeatherComponent() {
       setDaily(weatherData.daily);
       setHourly(weatherData.hourly);
     }
+
+    const delay = 2000;
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+    };
 
   }, []);
 
@@ -250,16 +262,450 @@ export function WeatherComponent() {
   }
 
   return (
-    <div>
-      {renderCurrentWeather()}
-      <section className="day-section" data-day-section>
-        {renderDailyWeather()}
-      </section>
-      <table className="hour-section">
-        <tbody data-hour-section>
-          {renderHourlyWeather()}
-        </tbody>
-      </table>
+    <div className={`weather-container ${loading ? "blurred" : ""}`}>
+      {loading && <><header class="header">
+      <div class="header-left">
+        <img class="weather-icon large" src="icons/sun.svg" data-current-icon />
+        <div class="header-current-temp">
+          <span data-current-temp>31</span>&deg;
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="info-group">
+          <div class="label">High</div>
+          <div><span data-current-high>32</span>&deg;</div>
+        </div>
+        <div class="info-group">
+          <div class="label">FL High</div>
+          <div><span data-current-fl-high>27</span>&deg;</div>
+        </div>
+        <div class="info-group">
+          <div class="label">Wind</div>
+          <div>
+            <span data-current-wind>9</span
+            ><span class="value-sub-info">mph</span>
+          </div>
+        </div>
+        <div class="info-group">
+          <div class="label">Low</div>
+          <div><span data-current-low>19</span>&deg;</div>
+        </div>
+        <div class="info-group">
+          <div class="label">FL Low</div>
+          <div><span data-current-fl-low>12</span>&deg;</div>
+        </div>
+        <div class="info-group">
+          <div class="label">Precip</div>
+          <div>
+            <span data-current-precip>0.1</span
+            ><span class="value-sub-info">in</span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="day-section" data-day-section>
+      <div class="day-card">
+        <img src="icons/cloud.svg" class="weather-icon" />
+        <div class="day-card-day">Monday</div>
+        <div>32&deg;</div>
+      </div>
+      <div class="day-card">
+        <img src="icons/cloud.svg" class="weather-icon" />
+        <div class="day-card-day">Tuesday</div>
+        <div>32&deg;</div>
+      </div>
+      <div class="day-card">
+        <img src="icons/cloud.svg" class="weather-icon" />
+        <div class="day-card-day">Wednesday</div>
+        <div>32&deg;</div>
+      </div>
+      <div class="day-card">
+        <img src="icons/cloud.svg" class="weather-icon" />
+        <div class="day-card-day">Thursday</div>
+        <div>32&deg;</div>
+      </div>
+      <div class="day-card">
+        <img src="icons/cloud.svg" class="weather-icon" />
+        <div class="day-card-day">Friday</div>
+        <div>32&deg;</div>
+      </div>
+      <div class="day-card">
+        <img src="icons/cloud.svg" class="weather-icon" />
+        <div class="day-card-day">Saturday</div>
+        <div>32&deg;</div>
+      </div>
+      <div class="day-card">
+        <img src="icons/cloud.svg" class="weather-icon" />
+        <div class="day-card-day">Sunday</div>
+        <div>32&deg;</div>
+      </div>
+    </section>
+
+    <table class="hour-section">
+      <tbody data-hour-section>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>3 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>4 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>5 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>6 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>7 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>8 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>9 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>10 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>11 PM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hour-row">
+          <td>
+            <div class="info-group">
+              <div class="label">Thursday</div>
+              <div>12 AM</div>
+            </div>
+          </td>
+          <td>
+            <img src="icons/cloud.svg" class="weather-icon" />
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Temp</div>
+              <div>31&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">FL Temp</div>
+              <div>25&deg;</div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Wind</div>
+              <div>26<span class="value-sub-info">mph</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="info-group">
+              <div class="label">Precip</div>
+              <div>0<span class="value-sub-info">in</span></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table></>}
+      {!loading && (
+        <React.Fragment>
+          {renderCurrentWeather()}
+          <section className="day-section" data-day-section>
+            {renderDailyWeather()}
+          </section>
+          <table className="hour-section">
+            <tbody data-hour-section>{renderHourlyWeather()}</tbody>
+          </table>
+        </React.Fragment>
+      )}
     </div>
   );
 }

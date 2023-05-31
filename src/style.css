@@ -394,3 +394,9 @@ body {
 .hour-row > td {
   padding: 0.25rem 0.5rem;
 }
+
+.blurred {
+  filter: blur(3px);
+  overflow: hidden;
+}
+
