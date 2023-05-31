@@ -263,13 +263,9 @@ body {
 
 .homelist {
   font-size: 40px;
-  display: flex;
+  text-align: center;
   gap: 10rem;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
   list-style-type: none;
-  text-decoration: none;
   height: 50vh;
   margin: 0;
   padding: 0;
