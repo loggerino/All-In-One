@@ -263,22 +263,23 @@ body {
 }
 
 .homelist {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
+  gap: 1rem;
+  justify-items: center;
   align-items: center;
-  height: 50vh;
   margin: 0;
   padding: 0;
+  list-style-type: none;
 }
 
 .homelist li {
-  margin: 1rem;
+  text-align: center;
   background-color: #0501013d;
   border-radius: 10px;
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
-  list-style-type: none;
 }
 
 .homelist li:hover {
@@ -293,12 +294,12 @@ body {
 
 .app-image {
   display: flex;
+  aspect-ratio: 1;
+  object-fit: cover;
   justify-content: center;
-  width: auto;
-  height: 30vh;
+  width: 295px;
   border-radius: 10px;
 }
-
 
 .home-title {
   margin-top: 5rem;
