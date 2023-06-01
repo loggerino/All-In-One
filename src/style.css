@@ -105,7 +105,8 @@ body {
 
 .list li label {
   display: flex;
-  gap: 2rem; /* Increase the gap as desired */
+  gap: 2rem;
+  /* Increase the gap as desired */
   cursor: pointer;
   align-items: center;
   flex: 1;
@@ -218,11 +219,11 @@ body {
   display: grid;
   margin-top: 2rem;
   justify-content: center;
-  grid-template-columns: repeat(4,6rem);
-  grid-template-rows: minmax(7rem,auto) repeat(5,6rem);
+  grid-template-columns: repeat(4, 6rem);
+  grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
 }
 
-.calculator-grid > button {
+.calculator-grid>button {
   cursor: pointer;
   font-size: 2rem;
   border: 1px solid white;
@@ -230,8 +231,8 @@ body {
   background-color: rgba(255, 255, 255, .75);
 }
 
-.calculator-grid > button:hover,
-.calculator-grid > button.focus {
+.calculator-grid>button:hover,
+.calculator-grid>button.focus {
   background-color: rgba(255, 255, 255, .9);
 }
 
@@ -262,19 +263,42 @@ body {
 }
 
 .homelist {
-  font-size: 40px;
-  text-align: center;
-  gap: 10rem;
-  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 50vh;
   margin: 0;
   padding: 0;
 }
 
+.homelist li {
+  margin: 1rem;
+  background-color: #0501013d;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  list-style-type: none;
+}
+
+.homelist li:hover {
+  transform: scale(1.05);
+}
+
 .homelist a {
   text-decoration: none;
   color: inherit;
+  font-size: 24px;
 }
+
+.app-image {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 30vh;
+  border-radius: 10px;
+}
+
 
 .home-title {
   margin-top: 5rem;
@@ -387,7 +411,7 @@ body {
   background-color: hsl(0, 0%, 20%);
 }
 
-.hour-row > td {
+.hour-row>td {
   padding: 0.25rem 0.5rem;
 }
 
@@ -395,4 +419,3 @@ body {
   filter: blur(3px);
   overflow: hidden;
 }
-
