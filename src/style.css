@@ -106,7 +106,6 @@ body {
 .list li label {
   display: flex;
   gap: 2rem;
-  /* Increase the gap as desired */
   cursor: pointer;
   align-items: center;
   flex: 1;
@@ -190,7 +189,7 @@ body {
   list-style: none;
   display: flex;
   gap: 1rem;
-  margin: .25rem;
+  margin: .5rem;
 }
 
 .nav a {
